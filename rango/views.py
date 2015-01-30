@@ -13,4 +13,5 @@ def index(request):
 
 
 def about(request):
-    return HttpResponse("The is the website built by Evan Wu. <br/> <a href='/rango/'>Index</a>")
+    context_dict = {'myname': "Evan"}
+    return render(request, 'rango/about.html', context_dict)
