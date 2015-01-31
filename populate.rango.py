@@ -6,11 +6,14 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'Evan_Tango_With_Django.settings
 import django
 django.setup()  # Import the django settings
 
-from rango.models import Category, Page # Import Django models
+from rango.models import Category, Page  # Import Django models
 
 
 def populate():
     python_cat = add_cat('Python')
+    #python_cat.views = 128
+    #python_cat.likes = 64
+    python_cat.save()
 
     add_page(python_cat,
              title="Offcial Python tutorial",
@@ -25,6 +28,9 @@ def populate():
              url="http://www.korokithakis.net/tutorials/python/")
 
     django_cat = add_cat('Django')
+    #django_cat.views = 64
+    #django_cat.likes = 32
+    django_cat.save()
 
     add_page(django_cat,
              title="Official Django Tutorial",
@@ -39,6 +45,9 @@ def populate():
              url="http://www.tangowithdjango.com/")
 
     other_cat = add_cat('Other Frameworks')
+    #other_cat.views = 32
+    #other_cat.likes = 16
+    other_cat.save()
 
     add_page(other_cat,
              title="Bottle",
@@ -52,9 +61,8 @@ def populate():
         for p in Page.objects.filter(category=c):
             print "- {0} - {1}".format(str(c), str(p))  # Print out what've been added
 
-
-def add_cat(name):
-    c = Category.objects.get_or_create(name=name)[0]  # Reference of the object created
+def add_cat(name, views=0, likes=0):
+    c = Category.objects.get_or_create(name=name, views=views, likes=likes)[0]  # Reference of the object created
     return c                                          # [0] means the first element in the return tuple
 
 
