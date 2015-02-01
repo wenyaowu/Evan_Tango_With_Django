@@ -1,9 +1,9 @@
 from django.shortcuts import get_object_or_404, render
-from django.http import HttpResponse, Http404 # Import the object 'HttpResponse'
+from django.http import HttpResponse, HttpResponseRedirect, Http404 # Import the object 'HttpResponse'
 # Import the Category model
 from rango.models import Category, Page
-from rango.form import CategoryForm, PageForm
-
+from rango.form import CategoryForm, PageForm, UserForm, UserProfileForm
+from django.contrib.auth import authenticate, login, logout
 
 def index(request):
     # Construct a dictionary to pass to the template engine as its context.
@@ -11,6 +11,9 @@ def index(request):
     category_list = Category.objects.order_by('-likes')[:5]  # Sort by the likes in descending order
     page_list = Page.objects.order_by('-views')[:5]
     context_dict = {'boldmessage': "I'm BOLD", 'categories': category_list, 'pages':page_list}  # Dictionary connecting with template(html)
+    if request.user.is_authenticated():
+        context_dict['user'] = request.user
+
     # Return a rendered response to send to the client.
     # We make use of the shortcut function to make our lives easier.
     # Note that the first parameter is the template we wish to use.
@@ -88,3 +91,58 @@ def add_page(request, category_name_slug):
         form = PageForm() # Other then POST
         context_dict = {'form':form, 'category':cat}
         return render(request, 'rango/add_page.html', context_dict)
+
+
+def register(request):
+    registered = False
+
+    if request.method == 'POST':
+        user_form = UserForm(request.POST)
+        profile_form = UserProfileForm(request.POST)
+        if user_form.is_valid() and profile_form.is_valid:
+            user = user_form.save()
+            user.set_password(user.password)
+
+            profile = profile_form.save(commit=False)
+            profile.user = user
+
+            if 'picture' in request.FILES:
+                profile.picture = request.FILES['picture']
+            profile.save()
+
+            registered = True
+        else:
+            print user_form.errors, profile_form.errors
+    else:
+        user_form = UserForm()
+        profile_form = UserProfileForm()
+    context_dict = {'user_form':user_form, 'profile_form':profile_form, 'registered':registered}
+    return render(request, 'rango/register.html', context_dict)
+
+def user_login(request):
+    context_dict={}
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password'] # Get User and Password from Http Request
+
+        # Use Django's machinery to attempt to see if the username/password
+        # combination is valid - a User object is returned if it is.
+        user = authenticate(username=username, password=password)
+
+        if user: # If user exists
+            if user.is_active: # Is the account active? It could have been disabled.
+                login(request, user)
+                return HttpResponseRedirect('/rango/') # Send back to homepage
+            else:
+                return HttpResponse("Your account is disabled")
+        else:
+            print "Invalid login details: {0}, {1}".format(username, password)
+            return HttpResponse("Invalid login details supplied.")
+
+    else: # Not POST request, for example, 'GET':just get into this page
+        return render(request, "rango/user_login.html",context_dict)
+
+def user_logout(request):
+    logout(request)
+    return HttpResponseRedirect('/rango/')
+
