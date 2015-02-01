@@ -11,8 +11,8 @@ from rango.models import Category, Page  # Import Django models
 
 def populate():
     python_cat = add_cat('Python')
-    #python_cat.views = 128
-    #python_cat.likes = 64
+    python_cat.views = 128
+    python_cat.likes = 64
     python_cat.save()
 
     add_page(python_cat,
@@ -28,8 +28,8 @@ def populate():
              url="http://www.korokithakis.net/tutorials/python/")
 
     django_cat = add_cat('Django')
-    #django_cat.views = 64
-    #django_cat.likes = 32
+    django_cat.views = 64
+    django_cat.likes = 32
     django_cat.save()
 
     add_page(django_cat,
@@ -45,8 +45,8 @@ def populate():
              url="http://www.tangowithdjango.com/")
 
     other_cat = add_cat('Other Frameworks')
-    #other_cat.views = 32
-    #other_cat.likes = 16
+    other_cat.views = 32
+    other_cat.likes = 16
     other_cat.save()
 
     add_page(other_cat,
