@@ -14,4 +14,6 @@ urlpatterns = patterns('',
                        url(r'user_logout/$', views.user_logout, name='user_logout'),
                        # (?P<name>pattern)
                        # This line will call the function views.category(request, 'category_name_slug'=....)
-                       url(r'^category/(?P<category_name_slug>[\w\-]+)/$', views.category, name='category'))
+                       url(r'^category/(?P<category_name_slug>[\w\-]+)/$', views.category, name='category'),
+                       url(r'^restricted/', views.restricted, name='restricted'),
+)

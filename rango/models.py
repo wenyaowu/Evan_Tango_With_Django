@@ -34,6 +34,6 @@ class UserProfile(models.Model):
     website = models.URLField(blank=True)
     picture = models.ImageField(upload_to='profile_images', blank=True)
     # <workspace>/<project>/media/profile_images/
-
+    # upload_to is associated with 'MEDIA_ROOT' in setting .py
     def __unicode__(self):
         return self.user.username

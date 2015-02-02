@@ -4,6 +4,7 @@ from django.http import HttpResponse, HttpResponseRedirect, Http404 # Import the
 from rango.models import Category, Page
 from rango.form import CategoryForm, PageForm, UserForm, UserProfileForm
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 
 def index(request):
     # Construct a dictionary to pass to the template engine as its context.
@@ -99,9 +100,13 @@ def register(request):
     if request.method == 'POST':
         user_form = UserForm(request.POST)
         profile_form = UserProfileForm(request.POST)
-        if user_form.is_valid() and profile_form.is_valid:
+        if user_form.is_valid() and profile_form.is_valid():
+            # Save the user's form data to the database.
             user = user_form.save()
+            # Hash the password with set_password method
             user.set_password(user.password)
+            # Update the user object
+            user.save()
 
             profile = profile_form.save(commit=False)
             profile.user = user
@@ -129,7 +134,7 @@ def user_login(request):
         # combination is valid - a User object is returned if it is.
         user = authenticate(username=username, password=password)
 
-        if user: # If user exists
+        if user is not None: # If user exists
             if user.is_active: # Is the account active? It could have been disabled.
                 login(request, user)
                 return HttpResponseRedirect('/rango/') # Send back to homepage
@@ -146,3 +151,6 @@ def user_logout(request):
     logout(request)
     return HttpResponseRedirect('/rango/')
 
+@login_required
+def restricted(request):
+    return HttpResponse("Since you are logged in, you can see the text!")
