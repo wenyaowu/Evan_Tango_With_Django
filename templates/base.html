@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Evan loves to Tango with Django.</title>
+</head>
+<body>
+    <div>
+        {% block body_block %} {% endblock %}
+    <!--  {block <NAME_OF_BLOCK>} DEFAULT_CONTENT {endblock}  -->
+    <!-- This is the block that's going to be overided -->
+    </div>
+
+    <hr /> <!--Horizontal division-->
+
+    <div>
+        <ul>
+            {% if user.is_authenticated %}
+                <li><a href="{% url 'user_logout' %}">Logout</a></li>
+                <li><a href="{% url 'add_category' %}">Add Category</a></li>
+            {% else %}
+                <li><a href="{% url 'user_login' %}">Login</a></li>
+                <li><a href="{% url 'register' %}">Register</a></li>
+            {% endif %}
+            <li><a href="{% url 'about' %}">About</a> </li>
+        </ul>
+    </div>
+</body>
+</html>

@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title></title>
-</head>
-<body>
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block body_block %}
     <h1>Register with Rango</h1>
     {% if registered %}
         <strong>Thanks for registering</strong>
-        <a href="/rango/">Return to Homepage</a><br />
+        <a href="{% url 'index' %}">Return to Homepage</a><br />
     {% else %}
         <strong>Welcome to Rango, please register here</strong>
         <form id="user_form" method="POST" action="/rango/register/"
@@ -22,5 +22,5 @@
         <input type="submit" name="submit" value="Register" /><br/>
         </form>
     {% endif %}
-</body>
+{% endblock %}
 </html>

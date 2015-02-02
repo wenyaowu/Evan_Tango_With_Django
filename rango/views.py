@@ -46,10 +46,10 @@ def category(request, category_name_slug):
     # We get here if we didn't find the specified category.
     # Don't do anything - the template displays the "no category" message for us.
     #raise Http404("Category doesn't exist")
-
+    context_dict['request']=request
     return render(request, 'rango/category.html', context_dict)
 
-
+@login_required
 def add_category(request):
     # HTTP POST
     if request.method == 'POST':
@@ -69,7 +69,7 @@ def add_category(request):
         form = CategoryForm()
         return render(request, 'rango/add_category.html', {'form': form})
 
-
+@login_required
 def add_page(request, category_name_slug):
 
     try:
@@ -142,7 +142,7 @@ def user_login(request):
                 return HttpResponse("Your account is disabled")
         else:
             print "Invalid login details: {0}, {1}".format(username, password)
-            return HttpResponse("Invalid login details supplied.")
+            return HttpResponseRedirect('/rango/login_error/')
 
     else: # Not POST request, for example, 'GET':just get into this page
         return render(request, "rango/user_login.html",context_dict)
@@ -154,3 +154,7 @@ def user_logout(request):
 @login_required
 def restricted(request):
     return HttpResponse("Since you are logged in, you can see the text!")
+
+
+def login_error(request):
+    return render(request, 'rango/login_error.html',{})

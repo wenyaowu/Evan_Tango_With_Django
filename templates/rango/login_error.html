@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html>
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block body_block %}
+    <h1>The username and password that you provided is wrong, please try again</h1>
+    <a href="{% url 'user_login' %}">Try Again</a><br />
+{% endblock %}
+</html>

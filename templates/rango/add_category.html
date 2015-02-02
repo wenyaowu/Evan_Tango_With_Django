@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title></title>
-</head>
-<body>
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block body_block %}
     <h1>Add new Category</h1>
     <!---Send POST to the address in 'action' field-->
     <form id="category_form" method="POST" action="/rango/add_category/">
@@ -21,5 +21,5 @@
     <input type="submit" name="submit" value="Create Category" />
     <!--Type of control that is created; value=text on control-->
     </form>
-</body>
+{% endblock %}
 </html>
