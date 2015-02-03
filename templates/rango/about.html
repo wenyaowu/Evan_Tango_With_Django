@@ -5,8 +5,13 @@
 {% load staticfiles %}
 
 {% block body_block %}
-    <h1>This is built by</h1>
-    <strong>{{ myname }}</strong><br />
-        <a href="{% url 'index' %}">Index</a><br />
+    <div class="page-header">
+    <h1>About</h1>
+    </div>
+    <div>
+    This is website created by <strong>{{ myname }}</strong><br />
+    <img  width="200" height="200" src="{% static "images/minion.png" %}" alt="Picture" />
+    </div>
 {% endblock %}
+
 </html>
