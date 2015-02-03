@@ -6,7 +6,7 @@ from rango.form import CategoryForm, PageForm, UserForm, UserProfileForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from datetime import datetime
-
+from bing_search import run_query
 
 def index(request):
     # Construct a dictionary to pass to the template engine as its context.
@@ -124,3 +124,14 @@ def add_page(request, category_name_slug):
 @login_required
 def restricted(request):
     return HttpResponse("Since you are logged in, you can see the text!")
+
+def search(request):
+    result_list=[]
+    context_dict={}
+    if request.method =='POST':
+        query = request.POST['query']
+
+        if query:
+            result_list = run_query(query)
+    context_dict['result_list']=result_list
+    return render(request, 'rango/search.html', context_dict)

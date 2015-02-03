@@ -13,5 +13,6 @@ urlpatterns = patterns('',
                        # (?P<name>pattern)
                        # This line will call the function views.category(request, 'category_name_slug'=....)
                        url(r'^category/(?P<category_name_slug>[\w\-]+)/$', views.category, name='category'),
-                       url(r'^restricted/', views.restricted, name='restricted'),
+                       url(r'^restricted/$', views.restricted, name='restricted'),
+                       url(r'^search/$', views.search, name='search'),
 )
