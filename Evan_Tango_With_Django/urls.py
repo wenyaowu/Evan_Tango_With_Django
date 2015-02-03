@@ -9,6 +9,8 @@ urlpatterns = patterns('',
 
     url(r'^admin/', include(admin.site.urls)),
     url(r'^rango/', include('rango.urls')), # Tell the project to get url from rango.urls if encounter /rango/ in URL
+    (r'^accounts/', include('registration.backends.simple.urls')),
+    (r'^password/', include('registration.backends.simple.urls')),
 )
 
 if settings.DEBUG: # If the DEBUG mode is true (See setting.py), then do this
