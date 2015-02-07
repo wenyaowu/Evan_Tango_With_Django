@@ -10,20 +10,23 @@
 {% block body_block %}
     {% if user.is_authenticated %}
         <div class="page-header">
-            <h1>Evan says...hello world! {{ user.username }}</h1>
+            <h1><small>Evan says...hello world!</small> {{ user.username }}</h1>
         {% else %}
             <h1>Evan says...hello world!</h1>
         {% endif %}
         </div>
 
+    <!--row box, use placeholder template-->
     <div class="row placeholders">
-    <div class="col-xs-12 col-sm-6 placeholder">
-
+    <!--hot category-->
+        <div class="col-xs-12 col-sm-6 placeholder">
+        <!--Header Panel-->
         <div class="panel panel-primary">
         <div class="panel-heading">
         <h3 class="panel-title">Hot Categories</h3>
         </div>
         </div>
+        <!--End panel-->
 
         {% if categories %}
             <ul class="list-group">
@@ -35,7 +38,10 @@
             <strong>There are no categories present.</strong>
         {% endif %}
     </div>
-    <div class="col-xs-12 col-sm-6 placeholder">
+    <!--end of hot category-->
+
+    <!--Hot page-->
+        <div class="col-xs-12 col-sm-6 placeholder">
 
     <div class="panel panel-primary">
         <div class="panel-heading">
@@ -53,7 +59,9 @@
             <strong>No page to show.</strong>
         {% endif %}
     </div>
+    <!--End of hot page-->
     </div>
+    <!--end of row box-->
 
 {% endblock %}
 

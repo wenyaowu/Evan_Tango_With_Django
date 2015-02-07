@@ -18,6 +18,27 @@
     <p>This is an example</p>
     <p>This is an other example</p>
 
+
+<!--the JW player-->
+<div id="myElement">Loading the player...</div>
+<script type="text/javascript">
+    jwplayer("myElement").setup({
+        file: "/static/video/sample.flv",
+        width: 640,
+        height: 360
+    });
+</script>
+<!--end of JW player-->
+
+    <!-- Using 'Video' tag to embed video-->
+    <video src="/static/video/sample.mp4"
+    width="640" height="360"
+    preload
+    controls
+    loop><p>VIDEO</p>
+    </video>
+    <!--end of video tag-->
+
 {% endblock %}
 
 </html>
