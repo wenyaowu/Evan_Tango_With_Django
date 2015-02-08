@@ -18,9 +18,7 @@
     <title>Rango - {% block title %}How to Tango with Django!{% endblock %}</title>
 
     <!--This tell where to find css file used to style the page-->
-      <!--<link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">-->
       <link href="/static/bootstrap-3.3.2/css/bootstrap.min.css" rel="stylesheet">
-
       <link href="http://getbootstrap.com/examples/dashboard/dashboard.css" rel="stylesheet">
 
     <!--[if lt IE 9]>
@@ -33,6 +31,11 @@
   ​  <script src="/jwplayer/jwplayer.js" ></script>
     <script>jwplayer.key="fNadMQORxymoLT+bCxoRWcJITMjUIa45aZHYXA==";</script>
     <!--end out setting JW player-->
+
+    <!--For ajax-->
+    <!-- include Jquery library-->
+    <script src="{{% static "js/jquery.js" %}"></script>
+    <script src="{% static "js/rango-ajax.js" %}"></script>
 
   </head>
 

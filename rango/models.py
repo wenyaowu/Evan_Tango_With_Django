@@ -10,8 +10,12 @@ class Category(models.Model):
 
     # Override
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.name)
-        super(Category, self).save(*args, **kwargs)
+        if (self.views>=0):
+            self.slug = slugify(self.name)
+            super(Category, self).save(*args, **kwargs)
+        else:
+            self.views=0
+            print 'save failed'
 
     def __unicode__(self):  # Similar with the toSting() method in Java
         return self.name
